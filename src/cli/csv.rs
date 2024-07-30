@@ -1,9 +1,11 @@
 use core::fmt;
-use std::{path::Path, str::FromStr};
+use std::str::FromStr;
 
 use clap::Parser;
 
 use anyhow::Result;
+
+use super::verify_input_file;
 
 #[derive(Debug, Copy, Clone)]
 pub enum OutputFormat {
@@ -27,14 +29,6 @@ pub struct CsvOptions {
 
     #[arg(long, default_value_t = true)]
     pub header: bool,
-}
-
-fn verify_input_file(filename: &str) -> Result<String, &'static str> {
-    if Path::new(filename).exists() {
-        Ok(filename.into())
-    } else {
-        Err("File does not exists")
-    }
 }
 
 fn parse_format(format: &str) -> Result<OutputFormat> {
